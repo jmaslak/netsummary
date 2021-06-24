@@ -134,7 +134,7 @@ void sniff_ip (const u_char * packet, int size, int origsize) {
 
 	unsigned int offset = cmd_options.gre ? 38 : 0;
 	       
-	assert(size >= sizeof(struct ip_hdr) + offset);
+	if (size < sizeof(struct ip_hdr) + offset) { return; }
 	hdr = (const struct ip_hdr *) (packet + offset);
 
 	if (hdr->ip_src != 0) {
