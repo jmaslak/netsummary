@@ -1,11 +1,11 @@
 # Makefile for netsummary
 
-# If compiling on CentOS, remove DUBUNTU
-CFLAGS=-Wall -O2
+# If compiling on CentOS, remove -DUBUNTU
+CFLAGS=-Wall -O2 -DUBUNTU
 
 netsummary	: main.o util.o sniff.o heap.o summarize.o ports.o
 	gcc $(CFLAGS) -o netsummary main.o util.o sniff.o heap.o \
-			summarize.o ports.o -static -lpcap
+			summarize.o ports.o -lpcap
 
 main.o		: main.c error.h netsummary.h util.h sniff.h heap.h \
 		  summarize.h ports.h
