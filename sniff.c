@@ -68,7 +68,13 @@ void open_pcap(void) {
 }
 
 void filter_iponly(void) {
-	if (pcap_compile(handle, &filter, "ip", 1, 0) < 0) {
+	char * filterstr;
+	if (cmd_options.gre) {
+		filterstr = "proto GRE && ip[38]&0xf0=0x40";
+	} else {
+		filterstr = "ip";
+	}
+	if (pcap_compile(handle, &filter, filterstr, 1, 0) < 0) {
 		util_error(ERR_PCAP_COMPILE_FAIL);
 	}
 	if (pcap_setfilter(handle, &filter) < 0) {
@@ -125,10 +131,11 @@ void sniff_eth (const u_char * packet, int size, int origsize) {
 
 void sniff_ip (const u_char * packet, int size, int origsize) {
 	const struct ip_hdr * hdr;
-	       
-	assert(size >= sizeof(struct ip_hdr));
 
-	hdr = (const struct ip_hdr *) packet;
+	unsigned int offset = cmd_options.gre ? 38 : 0;
+	       
+	assert(size >= sizeof(struct ip_hdr) + offset);
+	hdr = (const struct ip_hdr *) (packet + offset);
 
 	if (hdr->ip_src != 0) {
 		heap_update(hdr->ip_src, origsize);
@@ -138,22 +145,22 @@ void sniff_ip (const u_char * packet, int size, int origsize) {
 	}
 
 	if ((hdr->ip_p) == IP_PROTO_TCP) {
-		size -= 4 * (hdr->ip_hl);
-		packet += 4 * (hdr->ip_hl);
+		size -= offset + 4 * (hdr->ip_hl);
+		packet += offset + 4 * (hdr->ip_hl);
 
 		if (size < sizeof(struct tcp_hdr)) {
 			return; // Too small
 		}
-		sniff_tcp(packet, size, origsize);
+		sniff_tcp(packet, size, origsize - offset);
 		
 	} else if ((hdr->ip_p) == IP_PROTO_UDP) {
-		size -= 4 * (hdr->ip_hl);
-		packet += 4 * (hdr->ip_hl);
+		size -= offset + 4 * (hdr->ip_hl);
+		packet += offset + 4 * (hdr->ip_hl);
 
 		if (size < sizeof(struct udp_hdr)) {
 			return; // Too small
 		}
-		sniff_udp(packet, size, origsize);
+		sniff_udp(packet, size, origsize - offset);
 		
 	}
 }

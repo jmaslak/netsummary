@@ -18,8 +18,9 @@
 #define DEBUG (0)
 
 #define FREE  0xc0c0
-#define MAGIC 0xf32d
+#define MAGIC 0xf32e
 
+#define DEFAULT_GRE       0
 #define DEFAULT_INTERFACE "eth0"
 #define DEFAULT_TIME      60
 #define DEFAULT_TOP       10
@@ -29,6 +30,7 @@
 #define HEAP_ADDRESSES (MAX_ADDRESSES * 2 + 1)
 
 struct struct_cmd_options {
+	int gre;
 	char * interface;
 	time_t time;
 	int top;
