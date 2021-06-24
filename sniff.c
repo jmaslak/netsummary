@@ -3,7 +3,7 @@
  *
  * The actual sniffer
  *
- * Copyright (C) 2003 Joelle Maslak
+ * Copyright (C) 2003,2021 Joelle Maslak
  * All Rights Reserved
  *
  */

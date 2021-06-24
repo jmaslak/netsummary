@@ -3,7 +3,7 @@
  *
  * Tracks and summarizes active connecitons over a given time period
  *
- * Copyright (C) 2003 Joelle Maslak
+ * Copyright (C) 2003,2021 Joelle Maslak
  * All Rights Reserved
  *
  */
