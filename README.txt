@@ -33,9 +33,13 @@ Usage:
      interface  Network interface (default: eth0)
      seconds    Amount of time to gather stats for (default: 60 seconds)
      count      Number of events to report (default: 10)
+     -g         Indicates GRE-encapsulated traffic
 
   Typically, you would use an interface that is a span or monitor port
   on a switch.
+
+  The -g option filters for only GRE packets and looks into these
+  packets, after decapsulation.
 
 To compile on Linux using GCC ---> See the appropriate section below.
 
