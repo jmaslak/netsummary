@@ -20,7 +20,7 @@ WHY netsummary?
   and point a network administrator in the right direction.  It's very
   primitive in its output, deliberatelively (to minimize memory
   consumption and processing overhead).  It can handle several hundred
-  megabytes of traffic easily Dell PowerEdge 2450 hardware, with only
+  megabits of traffic easily Dell PowerEdge 2450 hardware, with only
   3-4% processor utilization.
 
 Configuration:
