@@ -112,7 +112,7 @@ void usage(void) {
 	fprintf(stderr,                 "(default: 60 seconds)\n");
 	fprintf(stderr, "     count      Number of events to report ");
 	fprintf(stderr,                 "(default: 10)\n");
-	fprintf(stderr, "     -g        Indicates GRE-encapsulated traffic\n");
+	fprintf(stderr, "     -g         Indicates GRE-encapsulated traffic\n");
 
 	fprintf(stderr, "\n");
 	
